@@ -365,7 +365,7 @@ export default function TournamentRegister({ params }: { params: Promise<{ slug:
         <div className="rounded-2xl border border-border bg-surface-1 p-5 sm:p-6 mb-8">
           <div className="flex items-center gap-4">
             {tournament.league?.image_url && (
-              <div className="h-12 w-12 shrink-0 rounded-xl bg-surface-2 ring-1 ring-border overflow-hidden flex items-center justify-center">
+              <div className="h-12 w-12 shrink-0 rounded-xl img-container overflow-hidden flex items-center justify-center">
                 <SafeImage src={tournament.league.image_url} alt="" width={36} height={36} className="object-contain" fallbackText={tournament.league?.name?.[0] || "?"} fallbackClassName="text-lg font-bold text-text-2" />
               </div>
             )}

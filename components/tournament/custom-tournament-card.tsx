@@ -41,7 +41,7 @@ export function CustomTournamentCard({ tournament }: { tournament: CustomTournam
         {/* Top: game + region */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="h-10 w-10 shrink-0 rounded-xl bg-surface-2 ring-1 ring-border overflow-hidden flex items-center justify-center">
+            <div className="h-10 w-10 shrink-0 rounded-xl img-container overflow-hidden flex items-center justify-center">
               <Gamepad2 size={20} className={gameColor} />
             </div>
             <div className="min-w-0">

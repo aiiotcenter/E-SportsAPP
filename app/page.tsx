@@ -58,7 +58,7 @@ function FeaturedMatch({ match }: { match: Match }) {
         <div className="flex items-center justify-between">
           {/* Team 1 */}
           <div className="flex flex-col items-center gap-2 flex-1">
-            <div className="h-14 w-14 rounded-2xl bg-surface-2 ring-1 ring-border overflow-hidden flex items-center justify-center">
+            <div className="h-14 w-14 rounded-2xl img-container overflow-hidden flex items-center justify-center">
               {t1?.image_url ? (
                 <SafeImage src={t1.image_url} alt={t1.name} width={40} height={40} className="object-contain" fallbackText={t1?.acronym?.[0] || "?"} fallbackClassName="text-lg font-bold text-text-2" />
               ) : (
@@ -77,7 +77,7 @@ function FeaturedMatch({ match }: { match: Match }) {
 
           {/* Team 2 */}
           <div className="flex flex-col items-center gap-2 flex-1">
-            <div className="h-14 w-14 rounded-2xl bg-surface-2 ring-1 ring-border overflow-hidden flex items-center justify-center">
+            <div className="h-14 w-14 rounded-2xl img-container overflow-hidden flex items-center justify-center">
               {t2?.image_url ? (
                 <SafeImage src={t2.image_url} alt={t2.name} width={40} height={40} className="object-contain" fallbackText={t2?.acronym?.[0] || "?"} fallbackClassName="text-lg font-bold text-text-2" />
               ) : (
@@ -90,7 +90,7 @@ function FeaturedMatch({ match }: { match: Match }) {
 
         <div className="mt-auto pt-3 border-t border-border/30 flex items-center gap-2">
           {match.league?.image_url && (
-            <div className="h-4 w-4 rounded bg-surface-2 ring-1 ring-border overflow-hidden flex items-center justify-center shrink-0">
+            <div className="h-4 w-4 rounded img-container overflow-hidden flex items-center justify-center shrink-0">
               <SafeImage src={match.league.image_url} alt="" width={12} height={12} className="object-contain" fallbackText="" />
             </div>
           )}

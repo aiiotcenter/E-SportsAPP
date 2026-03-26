@@ -27,7 +27,7 @@ export function TournamentCard({ tournament }: { tournament: Tournament }) {
         {/* Top: game + tier */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="h-10 w-10 shrink-0 rounded-xl bg-surface-2 ring-1 ring-border overflow-hidden flex items-center justify-center">
+            <div className="h-10 w-10 shrink-0 rounded-xl img-container overflow-hidden flex items-center justify-center">
               {tournament.league?.image_url ? (
                 <SafeImage src={tournament.league.image_url} alt="" width={28} height={28} className="object-contain" fallbackText={tournament.league?.name?.[0] || "?"} fallbackClassName="text-xs font-bold text-text-2" />
               ) : (

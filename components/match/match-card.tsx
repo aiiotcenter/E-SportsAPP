@@ -10,7 +10,7 @@ import type { Match, Team } from "@/lib/api/types";
 function TeamLogo({ team, side }: { team?: Team; side: "l" | "r" }) {
   return (
     <div className={cn("flex items-center gap-3 flex-1 min-w-0", side === "r" && "flex-row-reverse text-right")}>
-      <div className="h-10 w-10 shrink-0 rounded-xl bg-surface-2 ring-1 ring-border overflow-hidden flex items-center justify-center">
+      <div className="h-10 w-10 shrink-0 rounded-xl img-container overflow-hidden flex items-center justify-center">
         {team?.image_url ? (
           <SafeImage src={team.image_url} alt={team.name} width={32} height={32} className="object-contain" fallbackText={team?.acronym?.[0] || "?"} fallbackClassName="text-[11px] font-bold text-text-2" />
         ) : (
@@ -77,9 +77,9 @@ export function MatchCard({ match }: { match: Match }) {
         </div>
 
         {/* Bottom: league + time */}
-        <div className="mt-auto pt-3 border-t border-border/50 flex items-center gap-2">
+        <div className="mt-auto pt-3 flex items-center gap-2">
           {match.league?.image_url && (
-            <div className="h-4 w-4 rounded bg-surface-2 ring-1 ring-border overflow-hidden flex items-center justify-center shrink-0">
+            <div className="h-4 w-4 rounded img-container overflow-hidden flex items-center justify-center shrink-0">
               <SafeImage src={match.league.image_url} alt="" width={12} height={12} className="object-contain" fallbackText={match.league?.name?.[0] || "?"} fallbackClassName="text-[8px] font-bold text-text-2" />
             </div>
           )}

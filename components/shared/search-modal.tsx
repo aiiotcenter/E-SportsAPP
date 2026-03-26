@@ -328,7 +328,7 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
           idx === selected ? "bg-surface-2" : "hover:bg-surface-1"
         )}
       >
-        <div className="h-7 w-7 shrink-0 rounded-lg bg-surface-2 ring-1 ring-border overflow-hidden flex items-center justify-center">
+        <div className="h-7 w-7 shrink-0 rounded-lg img-container overflow-hidden flex items-center justify-center">
           {img ? (
             <SafeImage src={img} alt="" width={20} height={20} className="object-contain" fallbackText={name?.[0] || "?"} fallbackClassName="text-[9px] font-bold text-text-2" />
           ) : (

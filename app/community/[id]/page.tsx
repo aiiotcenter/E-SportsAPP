@@ -110,7 +110,7 @@ export default function CommunityTournamentDetail({ params }: { params: Promise<
         {/* ── Header Card ── */}
         <div className="rounded-2xl border border-border bg-surface-1 p-5 sm:p-7 mb-8">
           <div className="flex flex-col sm:flex-row items-start gap-5">
-            <div className="h-14 w-14 shrink-0 rounded-xl bg-surface-2 ring-1 ring-border flex items-center justify-center">
+            <div className="h-14 w-14 shrink-0 rounded-xl img-container flex items-center justify-center">
               <Gamepad2 size={28} className={gameColor} />
             </div>
             <div className="flex-1 min-w-0">

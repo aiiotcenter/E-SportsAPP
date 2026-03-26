@@ -158,7 +158,7 @@ function MatchParticipant({
         className={cn(
           "flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden ring-1",
           isPlayer ? "rounded-full" : "rounded-xl",
-          highlighted ? "bg-accent/10 ring-accent/20" : "bg-surface-2 ring-border"
+          highlighted ? "bg-accent/10 ring-accent/20" : "img-container"
         )}
       >
         {entity?.image_url ? (
@@ -298,7 +298,7 @@ function TournamentShowcaseCard({ tournament }: { tournament: Tournament }) {
             <div className="min-w-0">
               <div className="flex items-center gap-2 text-[10px] text-text-2">
                 {tournament.league?.image_url && (
-                  <div className="flex h-5 w-5 shrink-0 items-center justify-center overflow-hidden rounded-md bg-surface-2 ring-1 ring-border">
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center overflow-hidden rounded-md img-container">
                     <SafeImage
                       src={tournament.league.image_url}
                       alt={tournament.league.name || ""}
@@ -423,7 +423,7 @@ export default function PlayerProfile({ params }: { params: Promise<{ slug: stri
 
           <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-              <div className="flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-[26px] bg-surface-0 ring-1 ring-white/8">
+              <div className="flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-[26px] bg-surface-0 ring-1 ring-border">
                 {p.image_url ? (
                   <SafeImage
                     src={p.image_url}
@@ -465,7 +465,7 @@ export default function PlayerProfile({ params }: { params: Promise<{ slug: stri
                     href={`/teams/${p.current_team.slug}`}
                     className="mt-5 inline-flex items-center gap-3 rounded-xl border border-border bg-surface-0 px-3 py-2 text-sm text-text-0 transition-all hover:border-border-hover hover:bg-surface-0"
                   >
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-surface-2 ring-1 ring-border">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg img-container">
                       {p.current_team.image_url ? (
                         <SafeImage
                           src={p.current_team.image_url}
@@ -494,7 +494,7 @@ export default function PlayerProfile({ params }: { params: Promise<{ slug: stri
 
             <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[320px] lg:grid-cols-1">
               {p.current_team && (
-                <div className="rounded-2xl border border-white/8 bg-surface-0/70 p-4 backdrop-blur-sm">
+                <div className="rounded-2xl border border-border bg-surface-0/70 p-4 backdrop-blur-sm">
                   <p className="text-[10px] font-semibold uppercase tracking-wider text-text-2">{t("player.stats.team")}</p>
                   <p className="mt-2 truncate text-sm font-semibold text-text-0">{p.current_team.name}</p>
                   {p.current_team.acronym && <p className="text-[10px] text-text-2">{p.current_team.acronym}</p>}
@@ -502,7 +502,7 @@ export default function PlayerProfile({ params }: { params: Promise<{ slug: stri
               )}
 
               {p.current_videogame && (
-                <div className="rounded-2xl border border-white/8 bg-surface-0/70 p-4 backdrop-blur-sm">
+                <div className="rounded-2xl border border-border bg-surface-0/70 p-4 backdrop-blur-sm">
                   <p className="text-[10px] font-semibold uppercase tracking-wider text-text-2">{t("games")}</p>
                   <div className="mt-2 flex items-center gap-2 text-sm font-semibold text-text-0">
                     <GameIcon slug={p.current_videogame.slug || ""} size={14} className="text-text-1" />
@@ -511,7 +511,7 @@ export default function PlayerProfile({ params }: { params: Promise<{ slug: stri
                 </div>
               )}
 
-              <div className="rounded-2xl border border-white/8 bg-surface-0/70 p-4 backdrop-blur-sm">
+              <div className="rounded-2xl border border-border bg-surface-0/70 p-4 backdrop-blur-sm">
                 <p className="text-[10px] font-semibold uppercase tracking-wider text-text-2">{t("player.career")}</p>
                 <div className="mt-2 space-y-2">
                   {p.role && <DetailRow icon={<User size={13} />} value={p.role} accent />}
@@ -573,7 +573,7 @@ export default function PlayerProfile({ params }: { params: Promise<{ slug: stri
                   {p.current_team && (
                     <ProfilePanel title={t("player.stats.team")} icon={<Shield size={14} />} href={`/teams/${p.current_team.slug}`}>
                       <div className="flex items-center gap-3">
-                        <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-surface-2 ring-1 ring-border">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl img-container">
                           {p.current_team.image_url ? (
                             <SafeImage
                               src={p.current_team.image_url}
@@ -604,7 +604,7 @@ export default function PlayerProfile({ params }: { params: Promise<{ slug: stri
                   {p.current_videogame && (
                     <ProfilePanel title={t("games")} icon={<GameIcon slug={p.current_videogame.slug || ""} size={14} />}>
                       <div className="flex items-center gap-3">
-                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-surface-0 text-text-1 ring-1 ring-border">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl img-container text-text-1">
                           <GameIcon slug={p.current_videogame.slug || ""} size={18} className="text-text-1" />
                         </div>
                         <div className="min-w-0">

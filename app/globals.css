@@ -225,6 +225,14 @@ body {
   background: linear-gradient(90deg, var(--accent), rgba(88, 101, 242, 0.8));
 }
 
+/* ---- Image container (for transparent logos) ---- */
+.img-container {
+  background: #FFFFFF;
+}
+.dark .img-container {
+  background: #1e1e1e;
+}
+
 /* ---- Primary button shadow (Firecrawl style) ---- */
 .btn-primary-shadow {
   box-shadow:

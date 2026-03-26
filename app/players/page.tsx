@@ -74,7 +74,7 @@ function Content() {
                 <StaggerItem key={p.id}>
                   <Link href={`/players/${p.slug}`}>
                     <div className="rounded-xl border border-border bg-surface-1 p-4 text-center card-hover hover:border-border-hover">
-                      <div className="h-10 w-10 mx-auto rounded-full bg-surface-2 ring-1 ring-border overflow-hidden flex items-center justify-center mb-2">
+                      <div className="h-10 w-10 mx-auto rounded-full img-container overflow-hidden flex items-center justify-center mb-2">
                         {p.image_url ? <SafeImage src={p.image_url} alt={p.name} width={40} height={40} className="object-cover" fallbackText={p.name[0]} fallbackClassName="text-xs font-bold text-text-2" /> :
                           <span className="text-xs font-bold text-text-2">{p.name[0]}</span>}
                       </div>
