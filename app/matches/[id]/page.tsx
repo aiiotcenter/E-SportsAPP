@@ -111,27 +111,66 @@ export default function MatchDetail({ params }: { params: Promise<{ id: string }
         </div>
 
         {/* Games */}
-        {m.games?.length > 0 && (
-          <div>
-            <h3 className="text-sm font-bold text-text-0 mb-4">{t("games")}</h3>
-            <div className="space-y-2">
-              {m.games.sort((a, b) => a.position - b.position).map((g) => (
-                <div key={g.id} className="flex items-center justify-between rounded-xl border border-border bg-surface-1 px-5 py-3.5">
-                  <span className="text-xs text-text-1 font-semibold">Game {g.position}</span>
-                  <div className="flex items-center gap-3">
-                    {g.length != null && <span className="text-[10px] text-text-2 tabular-nums">{Math.floor(g.length / 60)}m</span>}
-                    <span className={cn(
-                      "text-[10px] font-semibold rounded-full px-2.5 py-0.5 border",
-                      g.finished ? "bg-win/10 text-win border-win/20" : g.status === "running" ? "bg-live/10 text-live border-live/20" : "bg-surface-2 text-text-2 border-border"
-                    )}>
-                      {g.finished ? "Done" : g.status === "running" ? "Live" : "Pending"}
-                    </span>
-                  </div>
-                </div>
-              ))}
+        {m.games?.length > 0 && (() => {
+          // Build a map of team_id -> team for quick winner lookup
+          const teamMap = new Map<number, Team>();
+          m.opponents?.forEach((o) => {
+            if (o.opponent && 'id' in o.opponent) {
+              teamMap.set(o.opponent.id, o.opponent as Team);
+            }
+          });
+
+          return (
+            <div>
+              <h3 className="text-sm font-bold text-text-0 mb-4">{t("games")}</h3>
+              <div className="space-y-2">
+                {m.games.sort((a, b) => a.position - b.position).map((g) => {
+                  const winnerTeam = g.winner?.id ? teamMap.get(g.winner.id) : null;
+                  const duration = g.length != null
+                    ? `${Math.floor(g.length / 60)}m`
+                    : g.begin_at && g.end_at
+                      ? `${Math.round((new Date(g.end_at).getTime() - new Date(g.begin_at).getTime()) / 60000)}m`
+                      : null;
+
+                  return (
+                    <div key={g.id} className="flex items-center justify-between rounded-xl border border-border bg-surface-1 px-5 py-3.5">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span className="text-xs text-text-1 font-semibold shrink-0">Game {g.position}</span>
+                        {winnerTeam && (
+                          <div className="flex items-center gap-2 min-w-0">
+                            <span className="text-[10px] text-text-2">—</span>
+                            {winnerTeam.image_url && (
+                              <div className="h-4 w-4 shrink-0 rounded img-container overflow-hidden flex items-center justify-center">
+                                <SafeImage src={winnerTeam.image_url} alt={winnerTeam.name} width={14} height={14} className="object-contain" fallbackText={winnerTeam.acronym?.[0] || "?"} fallbackClassName="text-[7px] font-bold text-text-2" />
+                              </div>
+                            )}
+                            <span className="text-[11px] text-accent font-semibold truncate">{winnerTeam.name}</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-3 shrink-0">
+                        {g.forfeit && (
+                          <span className="text-[9px] font-bold text-text-2/60 uppercase tracking-wider">FF</span>
+                        )}
+                        {duration && <span className="text-[10px] text-text-2 tabular-nums">{duration}</span>}
+                        <span className={cn(
+                          "text-[10px] font-semibold rounded-full px-2.5 py-0.5 border",
+                          g.finished
+                            ? "bg-win/10 text-win border-win/20"
+                            : g.status === "running"
+                              ? "bg-live/10 text-live border-live/20 animate-pulse"
+                              : "bg-surface-2 text-text-2 border-border"
+                        )}>
+                          {g.finished ? (winnerTeam ? "Winner" : "Done") : g.status === "running" ? "LIVE" : "Pending"}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
       </div>
     </PageTransition>
   );
