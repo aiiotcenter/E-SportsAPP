@@ -1,23 +1,4 @@
-import type { JSX } from "react";
-import {
-  Crown,
-  Gamepad2,
-  Rocket,
-  Swords,
-  type LucideIcon,
-} from "lucide-react";
-import {
-  siActivision,
-  siBattledotnet,
-  siCounterstrike,
-  siDota2,
-  siEpicgames,
-  siFifa,
-  siLeagueoflegends,
-  siPubg,
-  siUbisoft,
-  siValorant,
-} from "simple-icons";
+import Image from "next/image";
 
 interface GameIconProps {
   slug: string;
@@ -25,98 +6,107 @@ interface GameIconProps {
   className?: string;
 }
 
-type IconRenderer = (props: { size?: number; className?: string }) => JSX.Element;
+/**
+ * Maps PandaScore videogame slugs to icon filenames in /public/game-icons/.
+ * Falls back to "other.png" for any unrecognized slug.
+ */
+const SLUG_TO_ICON: Record<string, string> = {
+  // League of Legends
+  "league-of-legends": "lol",
+  lol: "lol",
 
-function BrandIcon({
-  icon,
-  size = 16,
-  className,
-}: {
-  icon: { path: string };
-  size?: number;
-  className?: string;
-}) {
-  return (
-    <svg
-      aria-hidden="true"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      className={className}
-    >
-      <path d={icon.path} fill="currentColor" />
-    </svg>
-  );
-}
+  // LoL: Wild Rift
+  "league-of-legends-wild-rift": "lolwildrift",
+  "lol-wild-rift": "lolwildrift",
+  lolwildrift: "lolwildrift",
 
-function createBrandIcon(icon: { path: string }): IconRenderer {
-  return function Icon(props) {
-    return <BrandIcon icon={icon} {...props} />;
-  };
-}
+  // Counter-Strike
+  "cs-go": "cs2",
+  csgo: "cs2",
+  cs2: "cs2",
+  "counter-strike-2": "cs2",
 
-function createLucideIcon(Icon: LucideIcon): IconRenderer {
-  return function LucideGameIcon({ size = 16, className }) {
-    return <Icon aria-hidden="true" size={size} className={className} />;
-  };
-}
+  // Dota 2
+  "dota-2": "dota2",
+  dota2: "dota2",
 
-const LeagueOfLegendsIcon = createBrandIcon(siLeagueoflegends);
-const CounterStrikeIcon = createBrandIcon(siCounterstrike);
-const Dota2Icon = createBrandIcon(siDota2);
-const ValorantIcon = createBrandIcon(siValorant);
-const PubgIcon = createBrandIcon(siPubg);
-const FifaIcon = createBrandIcon(siFifa);
-const OverwatchIcon = createBrandIcon(siBattledotnet);
-const RainbowSixIcon = createBrandIcon(siUbisoft);
-const RocketLeagueIcon = createBrandIcon(siEpicgames);
-const CallOfDutyIcon = createBrandIcon(siActivision);
-const KingOfGloryIcon = createLucideIcon(Crown);
-const MobileLegendsIcon = createLucideIcon(Swords);
-const GenericGameIcon = createLucideIcon(Gamepad2);
-const StarcraftIcon = createLucideIcon(Rocket);
+  // Valorant
+  valorant: "valorant",
 
-const GAME_ICON_MAP: Record<string, IconRenderer> = {
-  "league-of-legends": LeagueOfLegendsIcon,
-  lol: LeagueOfLegendsIcon,
-  "cs-go": CounterStrikeIcon,
-  csgo: CounterStrikeIcon,
-  cs2: CounterStrikeIcon,
-  "counter-strike-2": CounterStrikeIcon,
-  "dota-2": Dota2Icon,
-  dota2: Dota2Icon,
-  valorant: ValorantIcon,
-  overwatch: OverwatchIcon,
-  "overwatch-2": OverwatchIcon,
-  ow: OverwatchIcon,
-  pubg: PubgIcon,
-  fifa: FifaIcon,
-  "ea-sports-fc": FifaIcon,
-  fc: FifaIcon,
-  "cod-mw": CallOfDutyIcon,
-  codmw: CallOfDutyIcon,
-  "call-of-duty": CallOfDutyIcon,
-  cod: CallOfDutyIcon,
-  "rocket-league": RocketLeagueIcon,
-  rl: RocketLeagueIcon,
-  "r6-siege": RainbowSixIcon,
-  r6siege: RainbowSixIcon,
-  "rainbow-6-siege": RainbowSixIcon,
-  "rainbow-six-siege": RainbowSixIcon,
-  "starcraft-2": StarcraftIcon,
-  sc2: StarcraftIcon,
-  "king-of-glory": KingOfGloryIcon,
-  kog: KingOfGloryIcon,
-  "honor-of-kings": KingOfGloryIcon,
-  "mobile-legends": MobileLegendsIcon,
-  mlbb: MobileLegendsIcon,
-  generic: GenericGameIcon,
+  // Overwatch
+  overwatch: "overwatch",
+  "overwatch-2": "overwatch",
+  ow: "overwatch",
+
+  // FIFA / EA FC
+  fifa: "fifa",
+  "ea-sports-fc": "fifa",
+  fc: "fifa",
+
+  // PUBG
+  pubg: "pubg",
+  "pubg-mobile": "pubg",
+
+  // Rainbow Six
+  "r6-siege": "rainbow6",
+  r6siege: "rainbow6",
+  "rainbow-6-siege": "rainbow6",
+  "rainbow-six-siege": "rainbow6",
+
+  // Rocket League
+  "rocket-league": "rocketleauge",
+  rl: "rocketleauge",
+
+  // StarCraft 2
+  "starcraft-2": "starcraft2",
+  sc2: "starcraft2",
+  starcraft: "starcraft2",
+
+  // StarCraft: Brood War
+  "starcraft-brood-war": "starcraftbroodwar",
+  "sc-bw": "starcraftbroodwar",
+
+  // Mobile Legends
+  "mobile-legends": "mlbb",
+  mlbb: "mlbb",
+  "mobile-legends-bang-bang": "mlbb",
+
+  // Warcraft 3
+  "warcraft-3": "warcraft",
+  warcraft3: "warcraft",
+
+  // World of Warcraft
+  "world-of-warcraft": "worldofwarcraft",
+  wow: "worldofwarcraft",
+
+  // Call of Duty
+  "call-of-duty": "callofduty",
+  cod: "callofduty",
+  "cod-mw": "callofduty",
+  codmw: "callofduty",
+
+  // King of Glory / Honor of Kings
+  "king-of-glory": "kingofglory",
+  kog: "kingofglory",
+  "honor-of-kings": "kingofglory",
 };
 
-export function GameIcon({ slug, size = 16, className }: GameIconProps) {
-  const normalizedSlug = slug.toLowerCase();
-  const Icon = GAME_ICON_MAP[normalizedSlug] || GenericGameIcon;
+function getIconPath(slug: string): string {
+  const key = slug.toLowerCase();
+  const icon = SLUG_TO_ICON[key];
+  return `/game-icons/${icon ? icon : "other"}.png`;
+}
 
-  return <Icon size={size} className={className} />;
+export function GameIcon({ slug, size = 16, className }: GameIconProps) {
+  return (
+    <Image
+      src={getIconPath(slug)}
+      alt={slug}
+      width={size}
+      height={size}
+      className={className}
+      style={{ width: size, height: size, objectFit: "contain" }}
+      unoptimized
+    />
+  );
 }

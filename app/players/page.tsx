@@ -73,15 +73,18 @@ function Content() {
               {sortedPlayers.map((p) => (
                 <StaggerItem key={p.id}>
                   <Link href={`/players/${p.slug}`}>
-                    <div className="rounded-xl border border-border bg-surface-1 p-4 text-center card-hover hover:border-border-hover">
+                    <div className="relative rounded-lg border border-border bg-surface-1 p-4 text-center card-hover hover:border-border-hover">
+                      {p.role && (
+                        <span className="absolute top-2 right-2 text-[9px] text-accent bg-accent/10 rounded-md px-1.5 py-0.5 capitalize font-semibold">{p.role}</span>
+                      )}
                       <div className="h-10 w-10 mx-auto rounded-full img-container overflow-hidden flex items-center justify-center mb-2">
                         {p.image_url ? <SafeImage src={p.image_url} alt={p.name} width={40} height={40} className="object-cover" fallbackText={p.name[0]} fallbackClassName="text-xs font-bold text-text-2" /> :
                           <span className="text-xs font-bold text-text-2">{p.name[0]}</span>}
                       </div>
                       <p className="text-xs font-medium text-text-0 truncate">{p.name}</p>
                       {p.first_name && <p className="text-[10px] text-text-2 truncate">{p.first_name} {p.last_name}</p>}
-                      {p.role && (
-                        <span className="inline-block mt-1 text-[10px] text-accent bg-accent/10 rounded-md px-1.5 py-0.5 capitalize font-medium">{p.role}</span>
+                      {p.current_team && (
+                        <p className="text-[10px] text-text-2 mt-1 truncate">{p.current_team.name}</p>
                       )}
                     </div>
                   </Link>

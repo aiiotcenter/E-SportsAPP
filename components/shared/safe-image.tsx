@@ -34,6 +34,7 @@ export function SafeImage({
       {...props}
       src={src}
       alt={alt}
+      style={{ width: "auto", height: "auto", ...props.style }}
       onError={() => setHasError(true)}
     />
   );
